@@ -49,7 +49,7 @@ module.exports = {
       ],
       (err, results, fields) => {
         if (err) return callBack(err);
-        return callBack(null, results[0]);
+        return callBack(null, results);
       }
     );
   },
@@ -58,6 +58,17 @@ module.exports = {
     pool.query(
       `delete from registration where id=?`,
       [data.id],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  getUserByEmail: (email, callBack) => {
+    pool.query(
+      `select * from registration where email=?`,
+      [email],
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results[0]);
