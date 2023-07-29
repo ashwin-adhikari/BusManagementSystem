@@ -18,4 +18,50 @@ module.exports = {
       }
     );
   },
+  getUser: (callBack) => {
+    pool.query(`select * from registration`, [], (err, results, fields) => {
+      if (err) return callBack(err);
+      return callBack(null, results);
+    });
+  },
+
+  getUserById: (data, callBack) => {
+    pool.query(
+      `select * from registration where id=?`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+  updateUser: (data, callBack) => {
+    pool.query(
+      `update registration set firstname=?,lastname=?,gender=?,email=?,password=?,number=? where id=?`,
+      [
+        data.firstname,
+        data.lastname,
+        data.gender,
+        data.email,
+        data.password,
+        data.number,
+        data.id,
+      ],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteUser: (data, callBack) => {
+    pool.query(
+      `delete from registration where id=?`,
+      [data.id],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
 };
