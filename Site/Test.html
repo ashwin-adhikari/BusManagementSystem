@@ -49,7 +49,7 @@
           const fetchApi = async () => {
             try {
               const response = await fetch(
-                "http://localhost:3000/api/users/createLogin",
+                "http://localhost:3000/api/users/signin",
                 {
                   method: "POST",
                   headers: {
@@ -62,10 +62,20 @@
                 }
               );
 
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
+              // if (response.ok) {
+              //   const htmlText = await response.text();
+              //   document.body.innerHTML = htmlText;
+              // }
+              // if (!response.ok) {
+              //   throw new Error("Network response was not ok");
+              // }
               const jsonRes = await response.json();
+              console.log(jsonRes.success);
+              if (jsonRes.success) {
+                window.location.href = "index.html";
+              } else {
+                document.body.textContent = "Invalid"; //error page
+              }
             } catch (err) {
               if (err) return console.log(err);
             }

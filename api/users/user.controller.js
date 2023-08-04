@@ -74,7 +74,9 @@ module.exports = {
         const pwdMatch = await compare(password, user.password);
 
         if (pwdMatch) {
-          res.status(200).send("Login successful");
+          res.status(200).json({
+            success: true,
+          });
           // res.sendFile(path.join(__dirname, "..", "..", "Site", "index.html"));
         } else {
           res.status(401).send("Invalid password");
