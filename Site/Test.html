@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="wrapper">
+      <div class="title" id="title">Welcome</div>
       <div class="title">Login</div>
       <form id="login">
         <div class="field">
@@ -36,6 +37,9 @@
       </form>
     </div>
     <script>
+      const title = document.getElementById("title");
+      title.style.display = "none";
+
       document.addEventListener("DOMContentLoaded", function () {
         const loginForm = document.getElementById("login");
 
@@ -71,8 +75,12 @@
               // }
               const jsonRes = await response.json();
               console.log(jsonRes.success);
+
               if (jsonRes.success) {
                 window.location.href = "index.html";
+
+                title.style.display = "block";
+                title.textContent += username;
               } else {
                 document.body.textContent = "Invalid"; //error page
               }
