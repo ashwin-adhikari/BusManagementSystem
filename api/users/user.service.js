@@ -18,6 +18,24 @@ module.exports = {
       }
     );
   },
+  createLogin: (data, callBack) => {
+    pool.query(
+      `insert into login values(?,?)`,
+      [data.username, data.password],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
+  },
+
+  getLogin: (callBack) => {
+    pool.query(`select * from login`, [], (err, results, fields) => {
+      if (err) return callBack(err);
+      return callBack(null, results);
+    });
+  },
+
   getUser: (callBack) => {
     pool.query(`select * from registration`, [], (err, results, fields) => {
       if (err) return callBack(err);

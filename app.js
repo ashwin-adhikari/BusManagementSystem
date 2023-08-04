@@ -8,7 +8,7 @@ const credentials = require("./credentials");
 app.use(credentials);
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: "http://127.0.0.1:5500",
   })
 );
 app.use(express.urlencoded({ extended: false }));
