@@ -346,10 +346,11 @@
         class="wrapper d-flex justify-content-center flex-column px-md-5 px-1"
       >
         <div class="h3 text-center font-weight-bold">Register</div>
+        <form id="signup">
         <div class="row my-4">
           <div class="col-md-6">
-            <label>Full Name</label>
-            <input type="text" placeholder="Jhon Smith" />
+            <label for="username">Full Name</label>
+            <input type="text" id="username" placeholder="Jhon Smith" />
           </div>
           <div class="col-md-6 pt-md-0 pt-4">
             <label>Job Title</label> <input type="text" placeholder="Manager" />
@@ -366,6 +367,10 @@
           </div>
         </div>
         <div class="row my-md-4 my-2">
+          <div class="col-md-6">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"/>
+          </div>
           <!-- <div class="col-md-6">
             <label>Company</label>
             <input type="email" placeholder="Company Name" />
@@ -414,7 +419,88 @@
         <div class="d-flex justify-content-end">
           <button class="btn">Sign up</button>
         </div>
+        </form>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const signupForm = document.getElementById("signup");
+
+        signupForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = signupForm.username.value;
+          const password = signupForm.password.value;
+          console.log(username, password);
+
+          // const fetchApi = async () => {
+          //   try {
+          //     const response = await fetch(
+          //       "http://localhost:3000/api/users/signin",
+          //       {
+          //         method: "POST",
+          //         headers: {
+          //           "Content-Type": "application/json",
+          //         },
+          //         body: JSON.stringify({
+          //           username: username,
+          //           password: password,
+          //         }),
+          //       }
+          //     );
+
+          //     // if (response.ok) {
+          //     //   const htmlText = await response.text();
+          //     //   document.body.innerHTML = htmlText;
+          //     // }
+          //     // if (!response.ok) {
+          //     //   throw new Error("Network response was not ok");
+          //     // }
+          //     const jsonRes = await response.json();
+          //     console.log(jsonRes.success);
+          //     if (jsonRes.success) {
+          //       window.location.href = "index.html";
+          //     } else {
+          //       document.body.textContent = "Invalid"; //error page
+          //     }
+          //   } catch (err) {
+          //     if (err) return console.log(err);
+          //   }
+          // };
+
+          // fetchApi();
+
+          //   if (username === "admin" && password === "password") {
+          //     alert("Login successful!");
+          //     // You can redirect to another page or perform other actions here
+          //   } else {
+          //     alert("Login failed. Please check your username and password.");
+          //   }
+        });
+
+        // const getUser = async () => {
+        //   try {
+        //     const response = await fetch(
+        //       "http://localhost:3000/api/users/createLogin",
+        //       {
+        //         method: "GET",
+        //         headers: {
+        //           "Content-Type": "application/json",
+        //         },
+        //       }
+        //     );
+
+        //     const jsonRes = await response.json();
+        //     const username = jsonRes.data.map((item) => item.username);
+
+        //     console.log(username);
+        //   } catch (err) {
+        //     if (err) return console.log(err);
+        //   }
+        // };
+
+        // getUser();
+      });
+    </script>
   </body>
 </html>
