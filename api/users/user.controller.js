@@ -79,7 +79,9 @@ module.exports = {
           });
           // res.sendFile(path.join(__dirname, "..", "..", "Site", "index.html"));
         } else {
-          res.status(401).send("Invalid password");
+          res.status(401).json({
+            success: false,
+          });
         }
       }
     );

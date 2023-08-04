@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="title" id="title">Welcome</div>
+      <!-- <div class="title" id="title">Welcome</div> -->
       <div class="title">Login</div>
       <form id="login">
         <div class="field">
@@ -34,11 +34,14 @@
         <div class="signup-link">
           Not a member? <a href="signup.html">Signup now</a>
         </div>
+        <div class="signup-link" id="invalid">
+          Invalid Username and Password
+        </div>
       </form>
     </div>
     <script>
-      const title = document.getElementById("title");
-      title.style.display = "none";
+      const invalid = document.getElementById("invalid");
+      invalid.style.display = "none";
 
       document.addEventListener("DOMContentLoaded", function () {
         const loginForm = document.getElementById("login");
@@ -79,10 +82,11 @@
               if (jsonRes.success) {
                 window.location.href = "index.html";
 
-                title.style.display = "block";
-                title.textContent += username;
+                // title.style.display = "block";
+                // title.textContent += username;
               } else {
-                document.body.textContent = "Invalid"; //error page
+                invalid.style.display = "block";
+                invalid.style.color = "red";
               }
             } catch (err) {
               if (err) return console.log(err);
