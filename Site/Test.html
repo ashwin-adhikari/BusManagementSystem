@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="Test.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">Login</div>
+      <form id="login">
+        <div class="field">
+          <input type="text" id="username" name="username" required />
+          <label for="username">Username</label>
+        </div>
+        <div class="field">
+          <input type="password" id="password" name="password" required />
+          <label for="password">Password</label>
+        </div>
+        <div class="content">
+          <div class="checkbox">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+          </div>
+          <div class="pass-link">
+            <a href="#">Forgot password?</a>
+          </div>
+        </div>
+        <div class="field">
+          <input type="submit" value="Login" />
+        </div>
+        <div class="signup-link">
+          Not a member? <a href="signup.html">Signup now</a>
+        </div>
+      </form>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("login");
+
+        loginForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = loginForm.username.value;
+          const password = loginForm.password.value;
+          console.log(username, password);
+
+          const fetchApi = async () => {
+            try {
+              const response = await fetch(
+                "http://localhost:3000/api/users/createLogin",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: username,
+                    password: password,
+                  }),
+                }
+              );
+
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              const jsonRes = await response.json();
+            } catch (err) {
+              if (err) return console.log(err);
+            }
+          };
+
+          fetchApi();
+
+          //   if (username === "admin" && password === "password") {
+          //     alert("Login successful!");
+          //     // You can redirect to another page or perform other actions here
+          //   } else {
+          //     alert("Login failed. Please check your username and password.");
+          //   }
+        });
+
+        const getUser = async () => {
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/users/createLogin",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const jsonRes = await response.json();
+            const username = jsonRes.data.map((item) => item.username);
+
+            console.log(username);
+          } catch (err) {
+            if (err) return console.log(err);
+          }
+        };
+
+        getUser();
+      });
+    </script>
+  </body>
+</html>

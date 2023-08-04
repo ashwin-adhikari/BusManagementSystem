@@ -11,6 +11,7 @@ const {
 } = require("./user.service");
 
 const pool = require("../../config/connectSql");
+const path = require("path");
 
 const { sign } = require("jsonwebtoken");
 const { genSaltSync, hashSync, compareSync, compare } = require("bcrypt");
@@ -74,6 +75,7 @@ module.exports = {
 
         if (pwdMatch) {
           res.status(200).send("Login successful");
+          // res.sendFile(path.join(__dirname, "..", "..", "Site", "index.html"));
         } else {
           res.status(401).send("Invalid password");
         }
