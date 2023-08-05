@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
   
       if (username === "hello" && password === "123") {
         // Redirect to the home page (replace "home.html" with the actual path of your home page).
-        window.location.href = "home.html";
+        window.location.href = "indexaccount.html";
+        var usernamePlaceholder = document.getElementById("username-placeholder");
+    usernamePlaceholder.textContent = username;
       } else {
         alert("Invalid credentials. Please try again.");
       }
