@@ -23,14 +23,14 @@
     font-family: "Roboto", sans-serif;
   }
   body {
-    background-color: #900c3f;
+    background-color: #e7434e;
   }
   .container {
     padding: 20px 50px;
     min-height: 450px;
   }
   .fa-yoast {
-    color: #ac1f32;
+    color: #e7434e;
     font-weight: bold;
   }
   .h4 {
@@ -56,12 +56,12 @@
   }
   div.btn,
   button.btn {
-    background-color: #ac1f32;
+    background-color: #e7434e;
     color: #eee;
   }
   div.btn:hover,
   button.btn:hover {
-    background-color: #ac1f32d7;
+    background-color: #e7434e;
   }
   .navbar-light .navbar-nav .nav-link {
     color: #333;
@@ -108,15 +108,15 @@
     border-bottom: 2px solid #ddd;
   }
   .wrapper .col-md-6:hover label {
-    color: #ac1f32;
+    color: #e7434e;
   }
   .wrapper .col-md-6:hover input,
   .wrapper .col-md-6:hover #country {
-    border-color: #ac1f32;
+    border-color: ;#e7434e
     cursor: pointer;
   }
   .wrapper .col-md-6 input:focus {
-    border-color: #ac1f32;
+    border-color: #e7434e;
   }
   .option {
     position: relative;
@@ -156,7 +156,7 @@
     background-color: #f4f4f4;
   }
   .option input[type="radio"]:checked ~ .checkmark {
-    background: #ac1f32;
+    background: #e7434e;
     color: #fff;
     transition: 300ms ease-in-out 0s;
   }
