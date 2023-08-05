@@ -1,13 +1,14 @@
 const {
-  create,
-  createLogin,
-  signIn,
-  getUser,
-  getLogin,
-  getUserById,
-  updateUser,
-  deleteUser,
-  getUserByEmail,
+  // create,
+  // createLogin,
+  // signIn,
+  // getUser,
+  // getLogin,
+  // getUserById,
+  // updateUser,
+  // deleteUser,
+  // getUserByEmail,
+  registerEmployee,
 } = require("./user.service");
 
 const pool = require("../../config/connectSql");
@@ -17,32 +18,53 @@ const { sign } = require("jsonwebtoken");
 const { genSaltSync, hashSync, compareSync, compare } = require("bcrypt");
 
 module.exports = {
-  createUser: (req, res) => {
+  // createUser: (req, res) => {
+  //   const body = req.body;
+  //   const salt = genSaltSync(10);
+  //   body.password = hashSync(body.password, salt);
+
+  //   create(body, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
+  // createLogin: (req, res) => {
+  //   const body = req.body;
+  //   const salt = genSaltSync(10);
+  //   body.password = hashSync(body.password, salt);
+
+  //   createLogin(body, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
+
+  registerEmployee: (req, res) => {
     const body = req.body;
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
 
-    create(body, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
-
-      return res.status(200).json({
-        success: true,
-        data: results,
-      });
-    });
-  },
-  createLogin: (req, res) => {
-    const body = req.body;
-    const salt = genSaltSync(10);
-    body.password = hashSync(body.password, salt);
-
-    createLogin(body, (err, results) => {
+    registerEmployee(body, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -61,13 +83,15 @@ module.exports = {
   signIn: (req, res) => {
     const { username, password } = req.body;
     pool.query(
-      `select * from login where username=?`,
+      `select * from employees where employee_name=?`,
       [username],
       async (err, results, fields) => {
         if (err) return res.status(500).send("Database error");
 
         if (results.length === 0) {
-          return res.status(401).send("User not found");
+          return res.status(401).json({
+            success: false,
+          });
         }
 
         const user = results[0];
@@ -86,131 +110,133 @@ module.exports = {
       }
     );
   },
-  getLogin: (req, res) => {
-    getLogin((err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
-      return res.status(200).json({
-        data: results,
-      });
-    });
-  },
-  getUser: (req, res) => {
-    getUser((err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
-      return res.status(200).json({
-        success: true,
-        data: results,
-      });
-    });
-  },
+  // getLogin: (req, res) => {
+  //   getLogin((err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+  //     return res.status(200).json({
+  //       data: results,
+  //     });
+  //   });
+  // },
 
-  getUserById: (req, res) => {
-    const id = req.params.id;
+  // getUser: (req, res) => {
+  //   getUser((err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
 
-    getUserById(id, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
+  // getUserById: (req, res) => {
+  //   const id = req.params.id;
 
-      if (!results) {
-        return res.status(200).json({
-          message: "Record not found",
-        });
-      }
+  //   getUserById(id, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
 
-      return res.status(200).json({
-        success: true,
-        data: results,
-      });
-    });
-  },
-  updateUser: (req, res) => {
-    const body = req.body;
-    body.password = hashSync(body.password, genSaltSync(10));
+  //     if (!results) {
+  //       return res.status(200).json({
+  //         message: "Record not found",
+  //       });
+  //     }
 
-    updateUser(body, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
-      return res.status(200).json({
-        success: true,
-        data: results,
-      });
-    });
-  },
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
 
-  deleteUser: (req, res) => {
-    const id = req.body;
-    deleteUser(id, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
-      return res.status(200).json({
-        success: true,
-        data: results,
-      });
-    });
-  },
+  // updateUser: (req, res) => {
+  //   const body = req.body;
+  //   body.password = hashSync(body.password, genSaltSync(10));
 
-  login: (req, res) => {
-    const body = req.body;
+  //   updateUser(body, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
 
-    getUserByEmail(body.email, (err, results) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({
-          success: false,
-          message: "Database connection error",
-        });
-      }
+  // deleteUser: (req, res) => {
+  //   const id = req.body;
+  //   deleteUser(id, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
+  //     return res.status(200).json({
+  //       success: true,
+  //       data: results,
+  //     });
+  //   });
+  // },
 
-      if (!results) {
-        return res.json({
-          data: "Invalid email and password",
-        });
-      }
+  // login: (req, res) => {
+  //   const body = req.body;
 
-      const result = compareSync(body.password, results.password);
-      if (result) {
-        results.password = undefined;
-        const jsontoken = sign({ result: results }, "qwe1234", {
-          expiresIn: "1h",
-        });
+  //   getUserByEmail(body.email, (err, results) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return res.status(500).json({
+  //         success: false,
+  //         message: "Database connection error",
+  //       });
+  //     }
 
-        return res.json({
-          success: true,
-          message: "login successful",
-          token: jsontoken,
-        });
-      } else {
-        return res.status(200).json({
-          data: "Invalid email and password",
-        });
-      }
-    });
-  },
+  //     if (!results) {
+  //       return res.json({
+  //         data: "Invalid email and password",
+  //       });
+  //     }
+
+  //     const result = compareSync(body.password, results.password);
+  //     if (result) {
+  //       results.password = undefined;
+  //       const jsontoken = sign({ result: results }, "qwe1234", {
+  //         expiresIn: "1h",
+  //       });
+
+  //       return res.json({
+  //         success: true,
+  //         message: "login successful",
+  //         token: jsontoken,
+  //       });
+  //     } else {
+  //       return res.status(200).json({
+  //         data: "Invalid email and password",
+  //       });
+  //     }
+  //   });
+  // },
 };

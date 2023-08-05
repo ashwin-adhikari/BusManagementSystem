@@ -1,14 +1,17 @@
 const {
-  createUser,
-  createLogin,
-  signIn,
-  getLogin,
-  getUser,
+  // createUser,
+  // createLogin,
+  // signIn,
+  // getLogin,
+  // getUser,
 
-  getUserById,
-  updateUser,
-  deleteUser,
-  login,
+  // getUserById,
+  // updateUser,
+  // deleteUser,
+  // login,
+
+  registerEmployee,
+  signIn,
 } = require("./user.controller");
 
 const { verifyToken } = require("../../auth/token_validation");
@@ -20,7 +23,8 @@ const router = require("express").Router();
 // router.patch("/", verifyToken, updateUser);
 // router.delete("/", verifyToken, deleteUser);
 // router.post("/login", login);
-router.post("/createLogin", createLogin);
-router.get("/createLogin", getLogin);
+// router.post("/createLogin", createLogin);
+// router.get("/createLogin", getLogin);
 router.post("/signin", signIn);
+router.post("/registerEmployee", registerEmployee);
 module.exports = router;
