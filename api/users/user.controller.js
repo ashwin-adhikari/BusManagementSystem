@@ -9,6 +9,12 @@ const {
   // deleteUser,
   // getUserByEmail,
   registerEmployee,
+  registerBus,
+  assignCities,
+  assignRoutes,
+  assignRouteStages,
+  assignCitiesInStages,
+  assignBuses,
 } = require("./user.service");
 
 const pool = require("../../config/connectSql");
@@ -58,6 +64,81 @@ module.exports = {
   //     });
   //   });
   // },
+  assignCities: (req, res) => {
+    const body = req.body;
+
+    assignCities(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  assignRoutes: (req, res) => {
+    const body = req.body;
+
+    assignRoutes(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  assignRouteStages: (req, res) => {
+    const body = req.body;
+
+    assignRouteStages(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  assignCitiesInStages: (req, res) => {
+    const body = req.body;
+
+    assignCitiesInStages(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
 
   registerEmployee: (req, res) => {
     const body = req.body;
@@ -65,6 +146,44 @@ module.exports = {
     body.password = hashSync(body.password, salt);
 
     registerEmployee(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  registerBus: (req, res) => {
+    const body = req.body;
+
+    registerBus(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: results,
+      });
+    });
+  },
+
+  assignBuses: (req, res) => {
+    const body = req.body;
+
+    assignBuses(body, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({

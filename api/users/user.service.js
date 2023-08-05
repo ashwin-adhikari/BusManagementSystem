@@ -18,10 +18,50 @@ module.exports = {
   //     }
   //   );
   // },
-  createLogin: (data, callBack) => {
+  // createLogin: (data, callBack) => {
+  //   pool.query(
+  //     `insert into login values(?,?)`,
+  //     [data.username, data.password],
+  //     (err, results, fields) => {
+  //       if (err) return callBack(err);
+  //       return callBack(null, results);
+  //     }
+  //   );
+  // },
+  assignCities: (data, callBack) => {
     pool.query(
-      `insert into login values(?,?)`,
-      [data.username, data.password],
+      `insert into cities(city_name) values(?)`,
+      [data.city_name],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
+  },
+  assignRoutes: (data, callBack) => {
+    pool.query(
+      `insert into routes(route_name) values(?)`,
+      [data.route_name],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
+  },
+  assignRouteStages: (data, callBack) => {
+    pool.query(
+      `insert into routestages(route_id,stage_name) values(?,?)`,
+      [data.route_id, data.stage_name],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
+  },
+  assignCitiesInStages: (data, callBack) => {
+    pool.query(
+      `insert into citiesinstages(stage_id,city_id) values(?,?)`,
+      [data.stage_id, data.city_id],
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results);
@@ -39,13 +79,33 @@ module.exports = {
       }
     );
   },
-
-  getLogin: (callBack) => {
-    pool.query(`select * from login`, [], (err, results, fields) => {
-      if (err) return callBack(err);
-      return callBack(null, results);
-    });
+  registerBus: (data, callBack) => {
+    pool.query(
+      `insert into buses(bus_registration_number,bus_type,bus_size) values(?,?,?)`,
+      [data.reg_no, data.bus_type, data.bus_size],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
   },
+
+  assignBuses: (data, callBack) => {
+    pool.query(
+      `insert into busassignments(bus_id,stage_id,employee_id) values(?,?,?)`,
+      [data.bus_id, data.stage_id, data.employee_id],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
+  },
+  // getLogin: (callBack) => {
+  //   pool.query(`select * from login`, [], (err, results, fields) => {
+  //     if (err) return callBack(err);
+  //     return callBack(null, results);
+  //   });
+  // },
 
   // getUser: (callBack) => {
   //   pool.query(`select * from registration`, [], (err, results, fields) => {
