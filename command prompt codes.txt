@@ -1,0 +1,48 @@
+CREATE TABLE Cities (
+  city_id INT AUTO_INCREMENT PRIMARY KEY,
+  city_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Routes (
+  route_id INT AUTO_INCREMENT PRIMARY KEY,
+  route_name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE RouteStages (
+  stage_id INT AUTO_INCREMENT PRIMARY KEY,
+  route_id INT,
+  stage_name VARCHAR(100) NOT NULL,
+  FOREIGN KEY (route_id) REFERENCES Routes(route_id)
+);
+
+CREATE TABLE CitiesInStages (
+  stage_id INT,
+  city_id INT,
+  PRIMARY KEY (stage_id, city_id),
+  FOREIGN KEY (stage_id) REFERENCES RouteStages(stage_id),
+  FOREIGN KEY (city_id) REFERENCES Cities(city_id)
+);
+
+CREATE TABLE Buses (
+  bus_id INT AUTO_INCREMENT PRIMARY KEY,
+  bus_registration_number VARCHAR(20) UNIQUE NOT NULL,
+  bus_type VARCHAR(20),
+  bus_size VARCHAR(20)
+);
+
+CREATE TABLE Employees (
+  employee_id INT AUTO_INCREMENT PRIMARY KEY,
+  employee_name VARCHAR(100) NOT NULL,
+  address VARCHAR(200),
+  telephone_number VARCHAR(20)
+);
+
+CREATE TABLE BusAssignments (
+  assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+  bus_id INT,
+  stage_id INT,
+  employee_id INT,
+  FOREIGN KEY (bus_id) REFERENCES Buses(bus_id),
+  FOREIGN KEY (stage_id) REFERENCES RouteStages(stage_id),
+  FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
+);
